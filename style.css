@@ -22,8 +22,7 @@ nav {
 nav > p {
     text-decoration: underline;
     position: absolute;
-    right: 0px;
-    width: 600px;
+    left: 800px;
     padding: 10px;
     font-weight: bold;
 
