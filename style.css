@@ -66,6 +66,7 @@ main {
     background-color: lightskyblue;
     display: flex;
     margin-top: 20px;
+    border-radius: 50px;
 }
 
 .sidebar {
@@ -89,7 +90,7 @@ main {
 }
 
 /* interests section styles */
-#interest {
+#interests {
     border: 4px silver ridge;
     padding: 8px;
     margin-top: 20px;
