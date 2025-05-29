@@ -113,13 +113,6 @@ h2, h3 {
     align-content: center;
     
 }
-#portfolio_img{
-    background-image: url('images/background_Portfolio.png');
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 
 
 #portfolio {
