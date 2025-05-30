@@ -160,7 +160,7 @@ function animate() {
       currentAnimationType === animationTypes.duck
     )
   ) {
-    frameIndex = frameIndex + 15 / frameRate;
+    frameIndex = frameIndex + 15 / 60;
     if (duckTimer > 0) {
       duckTimer -= 0.25;
     }
