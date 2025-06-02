@@ -481,7 +481,7 @@ function drawCannons() {
       cannons[i].projectileCountdown = cannons[i].projectileCountdown + 1;
     }
 
-    ctx.fillStyle = "grey";
+    ctx.fillStyle = "black";
     ctx.save(); //save the current translation of the screen.
     ctx.translate(cannons[i].x, cannons[i].y); //you are moving the top left of the screen to the pictures location, this is because you can't rotate the image, you have to rotate the whole page
     ctx.rotate((cannons[i].rotation * Math.PI) / 180); //then you rotate. rotation is centered on 0,0 on the canvas, which is why we moved the picture to 0,0 with translate(x,y)
@@ -698,7 +698,7 @@ function keyboardControlActions() {
     if (player.onGround) {
       //this only lets you jump if you are on the ground
       player.speedY = player.speedY - playerJumpStrength;
-      jumpTimer = 19; //this counts how many frames to have the jump last.
+      jumpTimer = 1000; //this counts how many frames to have the jump last.
       player.onGround = false; //bug fix for jump animation, you have to change this or the jump animation doesn't work
       frameIndex = 4;
     }
