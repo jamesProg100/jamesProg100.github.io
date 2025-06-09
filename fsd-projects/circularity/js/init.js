@@ -20,18 +20,18 @@ var init = function (window) {
         ///////////////////
         
         // TODO 1 : Declare and initialize our variables
-        var circle;
-        var circles = [];
+        var circle; // circle variable
+        var circles = [];//array variable for all circles
 
 
 
 
         // TODO 2 : Create a function that draws a circle 
         function drawCircle(){
-            circle = draw.randomCircleInArea(canvas, true, true, "#999", 2);
-            physikz.addRandomVelocity(circle, canvas, 5, 5);
-            view.addChild(circle);
-            circles.push(circle);
+            circle = draw.randomCircleInArea(canvas, true, true, "#999", 2);//tgis creates the circle and puts them on the canvas
+            physikz.addRandomVelocity(circle, canvas, 5, 5);//this adds the velocity and makes them go into different directuons
+            view.addChild(circle); //adds the circle variable
+            circles.push(circle);  // adds to the end of the array
         }
 
 
