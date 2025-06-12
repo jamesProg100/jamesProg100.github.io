@@ -111,6 +111,8 @@ h2, h3 {
     top: -850px;
     border: 10px solid lightblue;
     align-content: center;
+    padding: 8px;
+    margin-top: 20px;
     
 }
 
@@ -121,10 +123,13 @@ h2, h3 {
 }
 
 #portfolio li {
-  background: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+    background: #fff;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    list-style-type: none;
+    padding: 8px;
+    margin-top: 20px;
 }
 
 #portfolio li:hover {
