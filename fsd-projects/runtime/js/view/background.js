@@ -21,58 +21,25 @@ var background = function (window) {
             background.removeAllChildren();
             buildings.length = 0; // Clear buildings array on render
             
-            // Background fill (sky)
-            var backgroundFill = draw.rect(canvasWidth, groundY, "#4682B4");
+            // Load and add background image
+            var backgroundImage = new createjs.Bitmap("img/background1.jpg"); // Replace with your image path
+            backgroundImage.image.onload = function() {
+                // Scale image to fit canvas width and height up to ground
+                backgroundImage.scaleX = canvasWidth / backgroundImage.image.width;
+                backgroundImage.scaleY = groundY / backgroundImage.image.height;
+                background.addChild(backgroundImage);
+            };
+            
+            // Optional: Add a fallback background fill in case the image fails to load
+            var backgroundFill = draw.rect(canvasWidth, groundY, '#FFDD3C');
             background.addChild(backgroundFill);
-            
-            // Moon
-            var moon = draw.bitmap("img/moon.png");
-            moon.x = 300;
-            moon.y = 100; // Higher up
-            moon.scaleX = 1.0; // Normal size
-            moon.scaleY = 1.0;
-            background.addChild(moon);
-            
-            // Stars (200)
-            for (var i = 0; i < 200; i++) {
-                var star = draw.circle(2, "white", "LightGray", 1);
-                star.x = Math.random() * canvasWidth;
-                star.y = Math.random() * (groundY - 100); // Stay above ground by 100px
-                background.addChild(star);
-            }
-            
-            // Tree
-            tree = draw.bitmap("img/tree.png");
-            tree.x = 0;
-            tree.y = groundY - 50;
-            background.addChild(tree);
-            
-            // Buildings (5)
-            for (var i = 0; i < 5; i++) {
-                var building = draw.rect(75, 300, "LightGray");
-                building.x = 200 * i;
-                building.y = groundY - 300;
-                background.addChild(building);
-                buildings.push(building);
-            }
+            // Move the fill behind the image
+            background.setChildIndex(backgroundFill, 0);
         }
         
         function update() {
             var canvasWidth = app.canvas.width;
-            
-            // Move tree left, loop back when offscreen
-            tree.x -= 2;
-            if (tree.x < -200) {
-                tree.x = canvasWidth;
-            }
-            
-            // Move buildings slower for parallax effect
-            for (var i = 0; i < buildings.length; i++) {
-                buildings[i].x -= 1;
-                if (buildings[i].x < -75) {
-                    buildings[i].x = canvasWidth;
-                }
-            }
+            // Update logic if needed
         }
         
         background.resize = render;
