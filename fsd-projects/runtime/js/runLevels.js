@@ -8,7 +8,6 @@ var runLevels = function (window) {
   window.opspark.runLevelInGame = function (game) {
     // some useful constants
     var groundY = game.groundY;
-    var canvasWidth = game.canvas.width; // Get canvas width for boundary checks
 
     // this data will allow us to define all of the
     // behavior of our game
@@ -17,103 +16,112 @@ var runLevels = function (window) {
     // set this to true or false depending on if you want to see hitzones
     game.setDebugMode(true);
 
+    // TODOs 5 through 11 go here
     // BEGIN EDITING YOUR CODE HERE
-
-    function createEnemy(x, y, speed) {
+    
+    
+    function createSawBlade (x, y, damage){
+      var hitZoneSize = 25;
+      var damageFromObstacle = damage;
+      var sawBladeHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
+      sawBladeHitZone.x = x;
+      sawBladeHitZone.y = y;
+      sawBladeHitZone.rotationalVelocity = 30;
+      game.addGameItem(sawBladeHitZone);
+      var obstacleImage = draw.bitmap("img/sawblade.png");
+      obstacleImage.x = -25;
+      obstacleImage.y = -25;
+      sawBladeHitZone.addChild(obstacleImage);
+    }
+    
+    function createEnemy(x, y, speed, image, offsetX, offsetY, scale){
       var enemy = game.createGameItem("enemy", 25);
-      var redSquare = draw.rect(50, 50, "red");
-      redSquare.x = -25;
-      redSquare.y = -25;
+      var redSquare = draw.bitmap(image);
+      redSquare.x = offsetX;
+      redSquare.y = offsetY;
+      redSquare.scaleX = scale;
+      redSquare.scaleY = scale;
       enemy.addChild(redSquare);
       enemy.x = x;
       enemy.y = y;
       game.addGameItem(enemy);
-      enemy.velocityX = speed; 
+      enemy.velocityX = speed;
       enemy.onPlayerCollision = function () {
-        game.changeIntegrity(-10);
+        game.changeIntegrity(-10)
       };
-      enemy.onProjectileCollision = function () {
+      enemy.onProjectileCollision = function (){
         game.increaseScore(100);
-        enemy.shrink();
+        enemy.fadeOut();
+        //enemy.shrink();
+        //flyTo(0,0);
       };
     }
 
-    function createReward(x, y, speed) {
+    function createReward(x, y, speed, image, offsetX, offsetY, scale){
       var reward = game.createGameItem("reward", 25);
-      var blueSquare = draw.rect(50, 50, "blue");
-      blueSquare.x = -25;
-      blueSquare.y = -25;
+      var blueSquare = draw.bitmap(image);
+      blueSquare.x = offsetX;
+      blueSquare.y = offsetY;
+      blueSquare.scaleX = scale;
+      blueSquare.scaleY = scale;
       reward.addChild(blueSquare);
       reward.x = x;
       reward.y = y;
       game.addGameItem(reward);
-      reward.velocityX = speed; 
+      reward.velocityX = speed;
       reward.onPlayerCollision = function () {
-        game.changeIntegrity(50);
+        game.changeIntegrity(10)
         game.increaseScore(100);
         reward.fadeOut();
       };
     }
 
-    function createMarker(x, y, speed) {
+    function createMarker(x, y, speed, image, offsetX, offsetY, scale){
       var marker = game.createGameItem("marker", 25);
-      var yellowSquare = draw.rect(50, 50, "yellow");
-      yellowSquare.x = -25;
-      yellowSquare.y = -25;
+      var yellowSquare = draw.bitmap(image);
+      yellowSquare.x = offsetX;
+      yellowSquare.y = offsetY;
+      yellowSquare.scaleX = scale;
+      yellowSquare.scaleY = scale;
       marker.addChild(yellowSquare);
       marker.x = x;
       marker.y = y;
       game.addGameItem(marker);
-      marker.velocityX = speed; 
+      marker.velocityX = speed;
       marker.onPlayerCollision = function () {
-        game.changeIntegrity(50);
+        game.changeIntegrity(10)
+        game.increaseScore(100);
         marker.fadeOut();
         startLevel();
       };
     }
 
-    function createTerminatorBot(x, y, speed) {
-      var bot = game.createGameItem("terminatorBot", 25);
-      var botImage = new createjs.Bitmap("img/TerminatorBot.jpg"); // Replace with actual image path
-      botImage.x = -25; // Center the image
-      botImage.y = -25;
-      // Scale image if needed (adjust scale values as necessary)
-      botImage.scaleX = 0.5;
-      botImage.scaleY = 0.5;
-      bot.addChild(botImage);
-      bot.x = x;
-      bot.y = y;
-      game.addGameItem(bot);
-      bot.velocityX = speed;
 
-      // Handle player collision
-      bot.onPlayerCollision = function () {
-        game.changeIntegrity(-20); // More damage than regular enemy
-      };
-
-      // Handle projectile collision
-      bot.onProjectileCollision = function () {
-        game.increaseScore(200); // Higher score for Terminator
-        bot.shrink(); // Shrink on hit (same as enemy)
-      };
-
-      // Update function to handle looping across screen
-      bot.onUpdate = function () {
-        // Reverse direction at canvas edges
-        if (bot.x > canvasWidth + 25) {
-          bot.x = -25; // Reset to left edge
-        } else if (bot.x < -25) {
-          bot.x = canvasWidth + 25; // Reset to right edge
-        }
-      };
-    }
+    //function calls
+    
 
     function startLevel() {
-      // Create game items for the current level
-      var level = levelData[currentLevel];
-      if (level) {
-        // Example: Spawn a Terminator bot at the start of each level
-        createTerminatorBot(canvasWidth + 25, groundY - 50, -2); // Starts off-screen right, moves left
+      // TODO 13 goes below here
+      var level = levelData[currentLevel]; //fetches the current level of the array and stores it in the var
+      var levelObjects = level.gameItems;
+      for(var i = 0; i < levelObjects.length; i++){
+        var element = levelObjects[i];
+     
+        if(element.type === "sawblade"){
+          createSawBlade(element.x, element.y, element.damage);
+        }
+
+        if(element.type === "enemy"){
+          createEnemy(element.x, element.y, element.speed, element.image, element.offsetX, element.offsetY, element.scale);
+        }
+         
+        if(element.type === "reward"){
+          createReward(element.x, element.y, element.speed, element.image, element.offsetX, element.offsetY, element.scale);
+        }
+         
+        if(element.type === "marker"){
+          createMarker(element.x, element.y, element.speed, element.image, element.offsetX, element.offsetY, element.scale);
+        }
       }
 
       //////////////////////////////////////////////
