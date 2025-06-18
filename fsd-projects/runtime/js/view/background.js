@@ -42,8 +42,13 @@ var background = function (window) {
             // TODO 1:
             // this currently fills the background with an obnoxious yellow;
             // you should modify both the height and color to suit your game
-            var backgroundFill = draw.rect(canvasWidth,groundY,'maroon');
-            background.addChild(backgroundFill);
+            // TODO 1: Add ghost_dungeon.jpg as the background
+            var backgroundImage = draw.bitmap("img/ghost dungeon.jpg");
+            backgroundImage.x = 0;
+            backgroundImage.y = 0;
+            backgroundImage.scaleX = canvasWidth / backgroundImage.image.width; // Scale to canvas width
+            backgroundImage.scaleY = groundY / backgroundImage.image.height; // Scale to ground height
+            background.addChild(backgroundImage); // Add first to ensure it's behind other elements
             
             // TODO 2: - Add a moon and starfield
            
@@ -54,13 +59,7 @@ var background = function (window) {
                 circle.y = groundY * Math.random();
                 background.addChild(circle);
             }
-
-            var moon = draw.bitmap("img/moon.png");
-            moon.x = canvasWidth - 250;
-            moon.y = groundY - 450;
-            moon.scaleX = 0.5;
-            moon.scaleY = 0.5;
-            background.addChild(moon);
+            
             
             // TODO 4: Part 1 - Add buildings!     Q: This is before TODO 4 for a reason! Why?      //this is the properties of the buidlings and makes them randoms height and random colors when they spawn
             for (var i = 0; i < 5; ++i) {
@@ -73,8 +72,8 @@ var background = function (window) {
                 buildings.push(building);
             }
             
-            // TODO 3: Part 1 - Add a tree
-            tree = draw.bitmap("img/tree.png");
+            // TODO 3: Part 1 - Add a tombestone
+            tree = draw.bitmap("img/tomebstone.png");
             tree.x = 300;
             tree.y = groundY - 225;
             background.addChild(tree);
