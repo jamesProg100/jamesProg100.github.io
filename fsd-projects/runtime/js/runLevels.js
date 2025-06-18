@@ -21,6 +21,9 @@ var runLevels = function (window) {
     
     
     function createSawBlade (x, y, damage){
+      
+      
+      //creates properites of the saw blade
       var hitZoneSize = 25;
       var damageFromObstacle = damage;
       var sawBladeHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
@@ -35,6 +38,8 @@ var runLevels = function (window) {
     }
     
     function createEnemy(x, y, speed, image, offsetX, offsetY, scale){
+      
+      //ghost propeties and draws the image to the screen using bitmap
       var enemy = game.createGameItem("enemy", 25);
       var redSquare = draw.bitmap(image);
       redSquare.x = offsetX;
@@ -58,6 +63,8 @@ var runLevels = function (window) {
     }
 
     function createReward(x, y, speed, image, offsetX, offsetY, scale){
+      
+      //properties of the reward items
       var reward = game.createGameItem("reward", 25);
       var blueSquare = draw.bitmap(image);
       blueSquare.x = offsetX;
@@ -79,6 +86,8 @@ var runLevels = function (window) {
     function createMarker(x, y, speed, image, offsetX, offsetY, scale){
       var marker = game.createGameItem("marker", 25);
       var yellowSquare = draw.bitmap(image);
+      
+      //x and y
       yellowSquare.x = offsetX;
       yellowSquare.y = offsetY;
       yellowSquare.scaleX = scale;
@@ -88,6 +97,7 @@ var runLevels = function (window) {
       marker.y = y;
       game.addGameItem(marker);
       marker.velocityX = speed;
+      // code to show if collision with marker
       marker.onPlayerCollision = function () {
         game.changeIntegrity(10)
         game.increaseScore(100);
@@ -106,7 +116,7 @@ var runLevels = function (window) {
       var levelObjects = level.gameItems;
       for(var i = 0; i < levelObjects.length; i++){
         var element = levelObjects[i];
-     
+        //if statements call the functions to the different parts of the game unless the condition is true
         if(element.type === "sawblade"){
           createSawBlade(element.x, element.y, element.damage);
         }

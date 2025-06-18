@@ -47,7 +47,7 @@ var background = function (window) {
             
             // TODO 2: - Add a moon and starfield
            
-
+            //Adds stars to the background at a random x and y position
             for(var i = 0; i < 100; i++){
                 var circle = draw.circle(3, "white", "LightGray", 2);
                 circle.x = canvasWidth * Math.random();
@@ -62,7 +62,7 @@ var background = function (window) {
             moon.scaleY = 0.5;
             background.addChild(moon);
             
-            // TODO 4: Part 1 - Add buildings!     Q: This is before TODO 4 for a reason! Why?
+            // TODO 4: Part 1 - Add buildings!     Q: This is before TODO 4 for a reason! Why?      //this is the properties of the buidlings and makes them randoms height and random colors when they spawn
             for (var i = 0; i < 5; ++i) {
                 var buildingsColors = ["lightgrey", "green", "yellow", "maroon", "pink"]
                 var buildingHeight = 200 * Math.random();
@@ -96,7 +96,7 @@ var background = function (window) {
             tree.x -= 5;
 
 
-
+            //makes tree come back
             if(tree.x < - 250){
                 tree.x = canvasWidth + 100
             }
@@ -104,7 +104,7 @@ var background = function (window) {
             
             
             // TODO 4: Part 2 - Parallax
-
+              //keeps add buildings and storing them in array and if buildings go off the screen they come back
             for(var i = 0; i < buildings.length; i++){
                 var building = buildings[i];
                 building.x -= 3;
