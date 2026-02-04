@@ -1,7 +1,7 @@
 body{
 
     background: #24789c;
-    background: linear-gradient(90deg,rgba(36, 120, 156, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%); //Background gradient from Css gradient generator 
+    background: linear-gradient(90deg,rgba(36, 120, 156, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%); /*Background gradient from Css gradient generator/* 
     
 }
 
@@ -9,8 +9,8 @@ body{
 
 
 #die {
-  height: 100px;
-  width: 100px;
+  height: 115px;
+  width: 115px;
   background-color: lightgray; /* Feel free to customize */
   position: relative;
   top: 395px;
@@ -24,8 +24,8 @@ body{
 }
 
 #die2 {
-  height: 100px;
-  width: 100px;
+  height: 115px;
+  width: 115px;
   background-color: green; /* Feel free to customize */
   position: relative;
   left: 700px; /* Adjust as needed to position the second die */
@@ -37,3 +37,4 @@ body{
   border: 2px solid #000;
   border-radius: 10px;
 }
+

@@ -7,6 +7,7 @@ $(document).ready(function () {
         width: 15,
         backgroundColor: "black",
         position: "absolute",
+        borderRadius: "50%",
         top: 50,
         left: 50,
 
@@ -19,6 +20,7 @@ $(document).ready(function () {
         width: 15,
         backgroundColor: "black",
         position: "absolute",
+        borderRadius: "50%",
         top: 50,
         left: 50,
 
@@ -33,6 +35,7 @@ $(document).ready(function () {
         width: 15,
         backgroundColor: "black",
         position: "absolute",
+       borderRadius: "50%",
         top: top,
         left: left,
 
