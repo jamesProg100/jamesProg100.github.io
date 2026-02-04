@@ -3,4 +3,25 @@
   width: 100px;
   background-color: lightgray; /* Feel free to customize */
   position: relative;
+  border: 2px solid #000;
+    border-radius: 10px;
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#die2 {
+  height: 100px;
+  width: 100px;
+  background-color: green; /* Feel free to customize */
+  position: relative;
+  left: 120px; /* Adjust as needed to position the second die */
+  top: -100px; /* Adjust as needed to align with the first die */
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #000;
+  border-radius: 10px;
 }

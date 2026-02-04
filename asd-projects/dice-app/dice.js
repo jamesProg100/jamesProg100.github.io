@@ -11,6 +11,18 @@ $(document).ready(function () {
         left: 50,
 
       })
+  .appendTo("#die2");
+
+    $("<div>")
+       .css({
+        height: 15,
+        width: 15,
+        backgroundColor: "black",
+        position: "absolute",
+        top: 50,
+        left: 50,
+
+      })
   .appendTo("#die");
 
 
@@ -69,6 +81,8 @@ $(document).ready(function () {
   }
   function handleClick(){
     rollDie('#die');
+    rollDie('#die2');
   }
    $("#die").on("click", handleClick);
+   $("#die2").on("click", handleClick);
 });
