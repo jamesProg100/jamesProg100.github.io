@@ -1,17 +1,41 @@
 
 body {
-  background-color: darkgreen;
+  background-image: url('Untitled-1.png');
+  width: 900px;
+  height: 900px;
+
 }
 
 #board {
-  width: 440px;
+  
+  width: 600px;
   height: 440px;
   border: 1px solid white;
-  background-color: black;
+  border-radius: 10px;
+  background: linear-gradient(#EEAECA, #94BBE9, #feb47b);
+    
+    /* Optional shadow for depth */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+ 
+
+  /* Centers content inside the board */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: 660px;
+  top: 100px;
+
+
+
 }
 
 #score, #highScore {
-  color: white;
+  color: rgb(255, 255, 255);
+  font-size: 90px;
+  position: relative;
+  left: 650px;
+  top: 200px;
 }
 
 .snake, .apple {
@@ -34,4 +58,11 @@ body {
 .apple {
   background-color: red;
   z-index: 1;
+}
+h1 {
+  position: absolute;
+  left: 35%;
+  top: 1%;
+  color: white;
+  font-size: 50px;
 }
