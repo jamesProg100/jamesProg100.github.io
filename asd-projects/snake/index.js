@@ -21,7 +21,7 @@ const snake = {};
 
 // Constant Variables
 var ROWS = 20;
-var COLUMNS = 20;
+var COLUMNS = 30;
 var SQUARE_SIZE = 20;
 var KEY = {
   LEFT: 37,
