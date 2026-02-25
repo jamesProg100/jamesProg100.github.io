@@ -1,6 +1,16 @@
 
 body {
-  background-color: darkgreen;
+  background-color: #002200; /* Darker green base */
+  /* Creates a subtle 20px grid pattern */
+  background-image: 
+    linear-gradient(rgba(0, 255, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 0, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0
 }
 
 #board {
@@ -9,13 +19,57 @@ body {
   border: 1px solid white;
   background-color: black;
   position: relative;
+  background: radial-gradient(circle, #868585 0%, #000000 100%);
+  position: relative;
 }
 
-#walker {
-  background-color: teal;
-  width: 50px;
+.player {
+  width:50px;
   height: 50px;
   position: absolute;
-/*   left: 100px; */  /* Uncomment if you want to set a "starting" position */
-/*   top: 100px;  */  /* Uncomment if you want to set a "starting" position */
 }
+
+#player1 {
+  background-color: teal;
+
+}
+#player2 {
+  background-color: rgb(58, 128, 0);
+
+}
+
+h1 {
+  /* Positioning (kept from your original) */
+  position: relative;
+  top: -200px;
+  left: 50px;
+
+  /* 80s Arcade Theme */
+  font-family: 'Press Start 2P', cursive;
+  font-size: 3rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+
+  /* Layered neon glow effect */
+  text-shadow: 
+    0 0 5px #fff, 
+    0 0 10px #fff, 
+    0 0 20px #ff00ff, /* Pink neon */
+    0 0 30px #ff00ff, 
+    0 0 40px #ff00ff;
+    
+  /* Optional: Add a slight flicker for a CRT effect */
+  animation: flicker 1.5s infinite alternate;
+}
+
+/* Flicker animation for that authentic old-screen feel */
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #ff00ff, 0 0 80px #ff00ff;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
