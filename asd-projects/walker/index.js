@@ -70,6 +70,7 @@ function runProgram(){
   On each "tick" of the timer, a new frame is dynamically drawn using JavaScript
   by calling this function and executing the code inside.
   */
+ //This function should contain everything that needs to be updated on each new frame.
   function newFrame() {
     repositionGameItem(player1);
     repositionGameItem(player2);
@@ -90,7 +91,8 @@ function runProgram(){
   
   Note: You can have multiple event handlers for different types of events.
   */
-  function handleKeyDown(event) {
+ //This function should contain everything that needs to be updated when we detect a "keydown" event.
+    function handleKeyDown(event) {
     if (event.which === KEY.LEFT) {
       player2.speedX = -5
       player2.speedY = 0;
@@ -125,7 +127,7 @@ function runProgram(){
 
 
 }
-
+//This function should contain everything that needs to be updated when we detect a "keyup" event.
 function handleKeyUp(){
   if(event.which === KEY.LEFT || event.which === KEY.RIGHT){
     player2.speedX = 0;
@@ -142,20 +144,20 @@ function handleKeyUp(){
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
-
+  //This function should move the player according to their speed. Remember, it is called in the "newFrame" function, so it should only do this one thing.
   function repositionGameItem(player){
     player.x += player.speedX;
     player.y += player.speedY
     
   }
-
+  //This function should update the CSS "left" and "top" of the player according to their x and y properties. Remember, it is called in the "newFrame" function, so it should only do this one thing.
   function redrawGameItem(player){
     $(player.id).css("left", player.x);
     $(player.id).css("top", player.y);
   
   }
 
-
+  //This function should prevent the player from going outside the boundaries of the board. Remember, it is called in the "newFrame" function, so it should only do this one thing.
   function wallCollision(player){
     if (player.x > BOARD_WIDTH - PLAYER_WIDTH) {
       player.x -= player.speedX;
@@ -171,6 +173,7 @@ function handleKeyUp(){
 
 
   }
+  //This function should return true if the two players are colliding with each other, and false if they are not. Remember, it is called in the "newFrame" function, so it should only do this one thing.
   function doCollide(a,b){
     return (
       a.x < b.x + PLAYER_WIDTH &&
@@ -179,7 +182,7 @@ function handleKeyUp(){
       a.y + PLAYER_HEIGHT > b.y
     )
   }
-
+  //This function should change the color of the player that is passed in. Remember, it is called in the "handleKeyDown" function, so it should only do this one thing.
   function colorChange(player){
     var randomColor = "#000000".replace(/0/g, function () {
       return (~~(Math.random() * 16)).toString(16);
@@ -189,6 +192,7 @@ function handleKeyUp(){
 
     $(player.id).css("background-color", randomColor)
   }
+  //This function should end the game. Remember, it is called in the "newFrame" function, so it should only do this one thing.
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
