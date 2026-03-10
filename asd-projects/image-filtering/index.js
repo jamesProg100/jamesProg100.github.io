@@ -85,7 +85,7 @@ function decreaseBlue(arr){
   arr[BLUE] = keepInBounds(arr[BLUE] - 50);
 }
 function increaseGreenByBlue(arr){
-  arr[GREEN] += keepInBounds(arr[GREEN] + arr[BLUE])
+  arr[GREEN] = keepInBounds(arr[GREEN] + arr[BLUE])
 }
 
 // CHALLENGE code goes below here
