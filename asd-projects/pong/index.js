@@ -12,7 +12,21 @@ function runProgram(){
   const FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
   
   // Game Item Objects
+function GameItem(id, x, y, speedX, speedY){
+  var gameItem = {};
+  gameItem.id = id;
+  gameItem.x = x;
+  gameItem.y = y;
+  gameItem.speedX = speedX;
+  gameItem.speedY = speedY;
+  gameItem.width = $(id).width();
+  gameItem.height = $(id).height();
 
+  return gameItem;
+}
+let player1 = GameItem("player1", 0,0,0,0)
+let player2 = GameItem("player2", BOARD_WIDTH - PLAYER_WIDTH, BOARD_HEIGHT - PLAYER_HEIGHT)
+let ball = GameItem("ball")
 
   // one-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)

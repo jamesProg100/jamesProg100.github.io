@@ -1,6 +1,25 @@
 
 body {
+   margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center; /* Horizontal center */
+  align-items: center;     /* Vertical center */
+
+      /* Retro Pong background */
   background-color: darkgreen;
+  background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px; /* Grid size */
+  color: white;
+  font-family: monospace;
+  }
+h1{
+  position: relative;
+  top: -70px;
+  left: 80px;
+  font-size: 30px;
 }
 
 #board {
@@ -9,13 +28,68 @@ body {
   border: 1px solid white;
   background-color: black;
   position: relative;
+  border: 4px solid white;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
-#gameItem {
-  background-color: teal;
-  width: 50px;
-  height: 50px;
+
+
+
+#leftPaddle{
+  /* appearance */
+  background-color: white;
+  width: 30px;
+  height: 90px;
+  border-radius: 20px;
+
+  /* positioning */
   position: absolute;
-/*   left: 100px; */  /* Uncomment if you want to set a "starting" position */
-/*   top: 100px;  */  /* Uncomment if you want to set a "starting" position */
+  top: 150px;
+  left: 35px;
 }
+#rightPaddle{
+  /* appearance */
+  background-color: white;
+  width: 30px;
+  height: 90px;
+  border-radius: 20px;
+
+  /* positioning */
+  position: absolute;
+  top: 35px;
+  left: 370px;
+}
+
+#ball{
+  /* appearance */
+  background-color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+
+  /* positioning */
+  position: absolute;
+  top: 35px;
+  left: 220px;
+}
+
+#score1 {
+    /* appearance */
+  color: white;
+  font-size: 35px;
+  /* positioning */
+  position: relative;
+  top: 380px;
+  left: -200px;
+}
+
+#score2 {
+    /* appearance */
+  color: white;
+  font-size: 35px;
+  /* positioning */
+  position: relative;
+  top: 300px;
+  left: 400px;
+}
+
