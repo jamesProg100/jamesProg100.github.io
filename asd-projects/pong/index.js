@@ -10,28 +10,46 @@ function runProgram(){
   // Constant Variables
   const FRAME_RATE = 60;
   const FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
+  var BOARD_WIDTH = $("#board").width();
+  var BOARD_HEIGHT = $("#board").height();
   
   // Game Item Objects
-function GameItem(id, x, y, speedX, speedY){
-  var gameItem = {};
-  gameItem.id = id;
-  gameItem.x = x;
-  gameItem.y = y;
-  gameItem.speedX = speedX;
-  gameItem.speedY = speedY;
-  gameItem.width = $(id).width();
-  gameItem.height = $(id).height();
+  function GameItem(id, x, y, speedX, speedY){
+    var gameItem = {};
+    gameItem.id = id;
+    gameItem.x = x;
+    gameItem.y = y;
+    gameItem.speedX = speedX;
+    gameItem.speedY = speedY;
+    gameItem.width = $(id).width();
+    gameItem.height = $(id).height();
 
-  return gameItem;
+    return gameItem;
 }
-let player1 = GameItem("player1", 0,0,0,0)
-let player2 = GameItem("player2", BOARD_WIDTH - PLAYER_WIDTH, BOARD_HEIGHT - PLAYER_HEIGHT)
-let ball = GameItem("ball")
+  const KEY = {
+  
+    UP: 38,
+    DOWN: 40,
+
+    W: 87,
+    S: 83
+  
+
+
+
+  }
+
+  let leftPaddle = GameItem("#leftPaddle", 0,0,0,0)
+  let rightPaddle = GameItem("#rightPaddle", BOARD_WIDTH - $("#rightPaddle").width(), BOARD_HEIGHT - $("#rightPaddle").height(), 0, 0)
+  let ball = GameItem("#ball", BOARD_WIDTH / 2, BOARD_HEIGHT / 2, (Math.random() > 0.5 ? -3 : 3), (Math.random() > 0.5 ? -3 : 3))
 
   // one-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
-  $(document).on('eventType', handleEvent);                           // change 'eventType' to the type of event you want to handle
-
+     
+  
+  // change 'eventType' to the type of event you want to handle
+  $(document).on('keydown', handleKeyDown);    
+  $(document).on('keyup', handleKeyUp); 
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
@@ -41,22 +59,63 @@ let ball = GameItem("ball")
   by calling this function and executing the code inside.
   */
   function newFrame() {
-    
+    drawObject();
+    moveObject();
 
   }
   
   /* 
   Called in response to events.
   */
-  function handleEvent(event) {
+
+  function handleKeyDown(event) {
+
+    if (event.which === KEY.UP) {
+      rightPaddle.speedY = -5
+      rightPaddle.speedX = 0;
+    }else if(event.which === KEY.DOWN) {
+      rightPaddle.speedY = 5
+      rightPaddle.speedX = 0;
+    }
+    
+    if(event.which === KEY.W){
+      leftPaddle.speedY = -5;
+      leftPaddle.speedX = 0;
+    }
+    else if(event.which === KEY.S){
+      leftPaddle.speedY = 5;
+      leftPaddle.speedX = 0;
+    }
 
   }
+//This function should contain everything that needs to be updated when we detect a "keyup" event.
+function handleKeyUp(event){
+  if(event.which === KEY.LEFT || event.which === KEY.RIGHT){
+    rightPaddle.speedX = 0;
+  }else if (event.which === KEY.UP || event.which === KEY.DOWN){
+    rightPaddle.speedY = 0;
+  }
+  if(event.which === KEY.A || event.which === KEY.D){
+    leftPaddle.speedX = 0;
+
+  }else if(event.which === KEY.W || event.which === KEY.S){
+    leftPaddle.speedY = 0;
+  }
+}
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 
+  function drawObject() {
+    
+    $(ball.id).css("left", ball.x); // draw the paddle in the new location, positionX pixels away from the "left"
+  }
+  function moveObject() {
+    ball.x += ball.speedX; // update the position of the paddle along the x-axis
   
+  }
+
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
