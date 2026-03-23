@@ -75,7 +75,7 @@ function runProgram(){
   function handleKeyDown(event) {
 
     if (event.which === KEY.UP) {
-      rightPaddle.speedY = -5;
+      rightPaddle.speedY = -5
       rightPaddle.speedX = 0;
       console.log("Up pressed")
     }else if(event.which === KEY.DOWN) {
@@ -98,15 +98,10 @@ function runProgram(){
   }
 //This function should contain everything that needs to be updated when we detect a "keyup" event.
 function handleKeyUp(event){
-  if(event.which === KEY.LEFT || event.which === KEY.RIGHT){
-    rightPaddle.speedX = 0;
-  }else if (event.which === KEY.UP || event.which === KEY.DOWN){
+  if (event.which === KEY.UP || event.which === KEY.DOWN){
     rightPaddle.speedY = 0;
   }
-  if(event.which === KEY.A || event.which === KEY.D){
-    leftPaddle.speedX = 0;
-
-  }else if(event.which === KEY.W || event.which === KEY.S){
+  else if(event.which === KEY.W || event.which === KEY.S){
     leftPaddle.speedY = 0;
   }
 }
@@ -118,7 +113,7 @@ function handleKeyUp(event){
   function drawObject(obj) {
     
     $(obj.id).css("left", obj.x); // draw the paddle in the new location, positionX pixels away from the "left"
-    $(obj.id).css("top", obj.x);
+    $(obj.id).css("top", obj.y);
   }
   function moveObject(obj) {
     obj.x += obj.speedX; // update the position of the paddle along the x-axis
