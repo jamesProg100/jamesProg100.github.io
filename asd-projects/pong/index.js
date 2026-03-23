@@ -59,8 +59,12 @@ function runProgram(){
   by calling this function and executing the code inside.
   */
   function newFrame() {
-    drawObject();
-    moveObject();
+    drawObject(rightPaddle);
+    drawObject(leftPaddle);
+    drawObject(ball);
+    moveObject(ball);
+    moveObject(rightPaddle);
+    moveObject(leftPaddle);
 
   }
   
@@ -71,7 +75,7 @@ function runProgram(){
   function handleKeyDown(event) {
 
     if (event.which === KEY.UP) {
-      rightPaddle.speedY = -5
+      rightPaddle.speedY = -5;
       rightPaddle.speedX = 0;
       console.log("Up pressed")
     }else if(event.which === KEY.DOWN) {
@@ -111,13 +115,15 @@ function handleKeyUp(event){
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 
-  function drawObject() {
+  function drawObject(obj) {
     
-    $(ball.id).css("left", ball.x); // draw the paddle in the new location, positionX pixels away from the "left"
+    $(obj.id).css("left", obj.x); // draw the paddle in the new location, positionX pixels away from the "left"
+    $(obj.id).css("top", obj.x);
   }
   function moveObject(obj) {
-    obj.x += ball.speedX; // update the position of the paddle along the x-axis
-    obj.y += ball.speedY
+    obj.x += obj.speedX; // update the position of the paddle along the x-axis
+    obj.y += obj.speedY;
+     
   
   }
 
