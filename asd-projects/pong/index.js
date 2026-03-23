@@ -73,18 +73,22 @@ function runProgram(){
     if (event.which === KEY.UP) {
       rightPaddle.speedY = -5
       rightPaddle.speedX = 0;
+      console.log("Up pressed")
     }else if(event.which === KEY.DOWN) {
       rightPaddle.speedY = 5
       rightPaddle.speedX = 0;
+      console.log("Down pressed")
     }
     
     if(event.which === KEY.W){
       leftPaddle.speedY = -5;
       leftPaddle.speedX = 0;
+      console.log("W pressed")
     }
     else if(event.which === KEY.S){
       leftPaddle.speedY = 5;
       leftPaddle.speedX = 0;
+      console.log("s pressed")
     }
 
   }
@@ -111,8 +115,9 @@ function handleKeyUp(event){
     
     $(ball.id).css("left", ball.x); // draw the paddle in the new location, positionX pixels away from the "left"
   }
-  function moveObject() {
-    ball.x += ball.speedX; // update the position of the paddle along the x-axis
+  function moveObject(obj) {
+    obj.x += ball.speedX; // update the position of the paddle along the x-axis
+    obj.y += ball.speedY
   
   }
 
