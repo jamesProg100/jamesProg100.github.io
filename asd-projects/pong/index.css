@@ -1,95 +1,106 @@
+/* Import retro pixel font */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 body {
-   margin: 0;
+  margin: 0;
   height: 100vh;
   display: flex;
   justify-content: center; /* Horizontal center */
   align-items: center;     /* Vertical center */
 
-      /* Retro Pong background */
+  /* Retro Pong background */
   background-color: darkgreen;
   background-image:
-      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 20px 20px; /* Grid size */
   color: white;
-  font-family: monospace;
-  }
-h1{
+  font-family: 'Press Start 2P', monospace;
+  position: relative;
+}
+
+/* CRT scanline overlay */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+h1 {
   position: relative;
   top: -70px;
-  left: 80px;
+  left: 400px;
   font-size: 30px;
+  text-shadow: 0 0 5px white, 0 0 10px white;
 }
 
 #board {
-  width: 440px;
-  height: 440px;
-  border: 1px solid white;
+  width: 1140px;
+  height: 640px;
   background-color: black;
   position: relative;
   border: 4px solid white;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 20px white, 0 0 40px rgba(255, 255, 255, 0.5);
 }
 
-
-
-
-#leftPaddle{
-  /* appearance */
+/* Paddles */
+#leftPaddle, #rightPaddle {
   background-color: white;
   width: 30px;
   height: 90px;
   border-radius: 20px;
-
-  /* positioning */
   position: absolute;
+  box-shadow: 0 0 10px white, 0 0 20px white;
+}
+
+#leftPaddle {
   top: 150px;
-  left: 35px;
+  left: 15px;
 }
-#rightPaddle{
-  /* appearance */
-  background-color: white;
-  width: 30px;
-  height: 90px;
-  border-radius: 20px;
 
-  /* positioning */
-  position: absolute;
+#rightPaddle {
   top: 35px;
-  left: 370px;
+  left: 1100px;
 }
 
-#ball{
-  /* appearance */
+/* Ball */
+#ball {
   background-color: white;
   width: 20px;
   height: 20px;
-  border-radius: 10px;
-
-  /* positioning */
+  border-radius: 50%;
   position: absolute;
   top: 35px;
   left: 220px;
+  box-shadow: 0 0 10px white, 0 0 20px white;
+}
+
+/* Scores */
+#score1, #score2 {
+  color: white;
+  font-size: 35px;
+  text-shadow: 0 0 5px white, 0 0 10px white;
 }
 
 #score1 {
-    /* appearance */
-  color: white;
-  font-size: 35px;
-  /* positioning */
   position: relative;
-  top: 380px;
+  top: -150px;
   left: -200px;
 }
 
 #score2 {
-    /* appearance */
-  color: white;
-  font-size: 35px;
-  /* positioning */
   position: relative;
-  top: 300px;
-  left: 400px;
+  top: -200px;
+  left: 1000px;
 }
-

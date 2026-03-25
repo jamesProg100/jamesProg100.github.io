@@ -10,118 +10,169 @@ function runProgram(){
   // Constant Variables
   const FRAME_RATE = 60;
   const FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
-  var BOARD_WIDTH = $("#board").width();
-  var BOARD_HEIGHT = $("#board").height();
+  const BOARD_WIDTH = $("#board").width();
+  const BOARD_HEIGHT = $("#board").height();
   
   // Game Item Objects
-  function GameItem(id, x, y, speedX, speedY){
-    var gameItem = {};
-    gameItem.id = id;
-    gameItem.x = x;
-    gameItem.y = y;
-    gameItem.speedX = speedX;
-    gameItem.speedY = speedY;
-    gameItem.width = $(id).width();
-    gameItem.height = $(id).height();
+  var ball = makeGameItem("#ball");
+  var leftPaddle = makeGameItem("#leftPaddle");
+  var rightPaddle = makeGameItem("#rightPaddle");
 
-    return gameItem;
-}
-  const KEY = {
-  
-    UP: 38,
-    DOWN: 40,
+  var score1 = 0;
+  var score2 = 0;
 
-    W: 87,
-    S: 83
-  
-
-
-
-  }
-
-  let leftPaddle = GameItem("#leftPaddle", 0,0,0,0)
-  let rightPaddle = GameItem("#rightPaddle", BOARD_WIDTH - $("#rightPaddle").width(), BOARD_HEIGHT - $("#rightPaddle").height(), 0, 0)
-  let ball = GameItem("#ball", BOARD_WIDTH / 2, BOARD_HEIGHT / 2, (Math.random() > 0.5 ? -3 : 3), (Math.random() > 0.5 ? -3 : 3))
+  $("#score1").text(score1);
+  $("#score2").text(score2);
 
   // one-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
-     
+  $(document).on("keydown", handleKeyDown);
+  $(document).on("keyup", handleKeyUp); 
   
-  // change 'eventType' to the type of event you want to handle
-  $(document).on('keydown', handleKeyDown);    
-  $(document).on('keyup', handleKeyUp); 
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
+
+ function makeGameItem(id){
+  var item = {};
+  item.id = id;
+  item.x = parseFloat($(id).css("left"));
+  item.y = parseFloat($(id).css("top"));
+  item.width = $(id).width();
+  item.height = $(id).height();
+  item.speedX = 0;
+  item.speedY = 0;
+  return item;
+ }
 
   /* 
   On each "tick" of the timer, a new frame is dynamically drawn using JavaScript
   by calling this function and executing the code inside.
   */
-  function newFrame() {
-    drawObject(rightPaddle);
-    drawObject(leftPaddle);
-    drawObject(ball);
-    moveObject(ball);
-    moveObject(rightPaddle);
-    moveObject(leftPaddle);
-
-  }
   
   /* 
   Called in response to events.
   */
+ 
+  const KEY = {
+    W: 87,
+    S: 83,
+    UP: 38,
+    DOWN: 40
+  };
 
   function handleKeyDown(event) {
-
-    if (event.which === KEY.UP) {
-      rightPaddle.speedY = -5
-      rightPaddle.speedX = 0;
-      console.log("Up pressed")
-    }else if(event.which === KEY.DOWN) {
-      rightPaddle.speedY = 5
-      rightPaddle.speedX = 0;
-      console.log("Down pressed")
-    }
-    
-    if(event.which === KEY.W){
+    if (event.which === KEY.W) {
       leftPaddle.speedY = -5;
-      leftPaddle.speedX = 0;
-      console.log("W pressed")
     }
-    else if(event.which === KEY.S){
+    if (event.which === KEY.S) {
       leftPaddle.speedY = 5;
-      leftPaddle.speedX = 0;
-      console.log("s pressed")
     }
+    if (event.which === KEY.UP) {
+      rightPaddle.speedY = -5;
+    }
+    if (event.which === KEY.DOWN) {
+      rightPaddle.speedY = 5;
+    }
+  }
 
+  function handleKeyUp(event) {
+    if (event.which === KEY.W || event.which === KEY.S) {
+      leftPaddle.speedY = 0;
+    }
+    if (event.which === KEY.UP || event.which === KEY.DOWN) {
+      rightPaddle.speedY = 0;
+    }
   }
-//This function should contain everything that needs to be updated when we detect a "keyup" event.
-function handleKeyUp(event){
-  if (event.which === KEY.UP || event.which === KEY.DOWN){
-    rightPaddle.speedY = 0;
-  }
-  else if(event.which === KEY.W || event.which === KEY.S){
-    leftPaddle.speedY = 0;
-  }
-}
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 
-  function drawObject(obj) {
+  function wallCollision(obj){
     
-    $(obj.id).css("left", obj.x); // draw the paddle in the new location, positionX pixels away from the "left"
-    $(obj.id).css("top", obj.y);
-  }
-  function moveObject(obj) {
-    obj.x += obj.speedX; // update the position of the paddle along the x-axis
-    obj.y += obj.speedY;
-     
-  
+    if (obj.id !== "#ball") {
+      if (obj.y <= 0) {
+        obj.y = 0;
+        obj.speedY = 0;
+      }
+      if (obj.y + obj.height >= BOARD_HEIGHT) {
+        obj.y = BOARD_HEIGHT - obj.height;
+        obj.speedY = 0;
+      }
+    }
+
+    if (obj.id === "#ball") {
+      if (obj.y <= 0 || obj.y + obj.height >= BOARD_HEIGHT) {
+        obj.speedY *= -1;
+      }
+
+      if (obj.x <= 0) {
+        score2++;
+        $("#score2").text(score2);
+        startBall();
+        if (score2 >= 11) {
+          alert("Player 2 wins!");
+          endGame();
+        }
+      }
+
+      if (obj.x + obj.width >= BOARD_WIDTH) {
+        score1++;
+        $("#score1").text(score1);
+        startBall();
+
+        if (score1 >= 11) {
+          alert("Player 1 wins!");
+          $(document).text("Game Over!")
+          endGame();
+        }
+      }
+    }
   }
 
+  function doCollide(a, b){
+    return !(
+      a.x > b.x + b.width ||
+      a.x + a.width < b.x ||
+      a.y > b.y + b.height ||
+      a.y + a.height < b.y
+    );
+  }
+
+  function moveObject(obj) {
+    obj.x += obj.speedX;
+    obj.y += obj.speedY;
+
+    $(obj.id).css("left", obj.x);
+    $(obj.id).css("top", obj.y);
+  }
+
+  startBall();
+
+  function startBall() {
+    ball.x = BOARD_WIDTH / 2 - ball.width / 2;
+    ball.y = BOARD_HEIGHT / 2 - ball.height / 2;
+
+    ball.speedX = (Math.random() * 3 + 3) * (Math.random() > 0.5 ? -1 : 1);
+    ball.speedY = (Math.random() * 3 + 3) * (Math.random() > 0.5 ? -1 : 1);
+  }
+
+  function newFrame(){
+    moveObject(ball);
+    moveObject(leftPaddle);
+    moveObject(rightPaddle);
+
+    wallCollision(ball);
+    wallCollision(leftPaddle);
+    wallCollision(rightPaddle);
+
+    if (doCollide(ball, leftPaddle) || doCollide(ball, rightPaddle)) {
+      ball.speedX = -ball.speedX;
+    }
+  }
+
+  
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
