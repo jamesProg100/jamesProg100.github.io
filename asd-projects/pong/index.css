@@ -20,6 +20,7 @@ body {
 }
 
 /* CRT scanline overlay */
+/*Copied css code from css snippets */
 body::after {
   content: "";
   position: fixed;

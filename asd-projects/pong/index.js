@@ -88,7 +88,7 @@ function runProgram(){
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
-
+//Wall collision function checks if ball goes pass the border
   function wallCollision(obj){
     
     if (obj.id !== "#ball") {
@@ -139,7 +139,7 @@ function runProgram(){
       a.y + a.height < b.y
     );
   }
-
+  //Helps us add speed and move the paddles
   function moveObject(obj) {
     obj.x += obj.speedX;
     obj.y += obj.speedY;
@@ -149,7 +149,7 @@ function runProgram(){
   }
 
   startBall();
-
+  //function to put where the ball starts
   function startBall() {
     ball.x = BOARD_WIDTH / 2 - ball.width / 2;
     ball.y = BOARD_HEIGHT / 2 - ball.height / 2;
