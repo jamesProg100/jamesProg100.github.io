@@ -20,7 +20,7 @@ function runProgram(){
 
   var score1 = 0;
   var score2 = 0;
-
+  //prints the score on the screen
   $("#score1").text(score1);
   $("#score2").text(score2);
 
@@ -32,7 +32,7 @@ function runProgram(){
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
-
+//Game
  function makeGameItem(id){
   var item = {};
   item.id = id;
@@ -53,7 +53,7 @@ function runProgram(){
   /* 
   Called in response to events.
   */
- 
+  //Keydown and keyup functions to move the paddles up and down
   const KEY = {
     W: 87,
     S: 83,
@@ -101,12 +101,12 @@ function runProgram(){
         obj.speedY = 0;
       }
     }
-
+    //Checks if the ball hits the top or bottom border and bounces back
     if (obj.id === "#ball") {
       if (obj.y <= 0 || obj.y + obj.height >= BOARD_HEIGHT) {
         obj.speedY *= -1;
       }
-
+      //Checks if the ball goes past the left border and updates the score
       if (obj.x <= 0) {
         score2++;
         $("#score2").text(score2);
@@ -116,7 +116,7 @@ function runProgram(){
           endGame();
         }
       }
-
+      //Checks if the ball goes past the right border and updates the score
       if (obj.x + obj.width >= BOARD_WIDTH) {
         score1++;
         $("#score1").text(score1);
@@ -130,7 +130,7 @@ function runProgram(){
       }
     }
   }
-
+  //Checks if the ball collides with the paddles and bounces back
   function doCollide(a, b){
     return !(
       a.x > b.x + b.width ||
@@ -153,11 +153,11 @@ function runProgram(){
   function startBall() {
     ball.x = BOARD_WIDTH / 2 - ball.width / 2;
     ball.y = BOARD_HEIGHT / 2 - ball.height / 2;
-
+    //randomizes the speed and direction of the ball
     ball.speedX = (Math.random() * 3 + 3) * (Math.random() > 0.5 ? -1 : 1);
     ball.speedY = (Math.random() * 3 + 3) * (Math.random() > 0.5 ? -1 : 1);
   }
-
+  //function to move the ball and paddles, check for collisions, and update the score
   function newFrame(){
     moveObject(ball);
     moveObject(leftPaddle);
@@ -166,7 +166,7 @@ function runProgram(){
     wallCollision(ball);
     wallCollision(leftPaddle);
     wallCollision(rightPaddle);
-
+    //Checks for collision between the ball and the paddles
     if (doCollide(ball, leftPaddle) || doCollide(ball, rightPaddle)) {
       ball.speedX = -ball.speedX;
     }
