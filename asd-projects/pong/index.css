@@ -37,7 +37,7 @@ body::after {
     transparent 3px
   );
 }
-
+/* Title */
 h1 {
   position: relative;
   top: -70px;
@@ -45,7 +45,7 @@ h1 {
   font-size: 30px;
   text-shadow: 0 0 5px white, 0 0 10px white;
 }
-
+/* Game board */
 #board {
   width: 1140px;
   height: 640px;
@@ -64,7 +64,7 @@ h1 {
   position: absolute;
   box-shadow: 0 0 10px white, 0 0 20px white;
 }
-
+/* Position the paddles on the left and right sides of the board */
 #leftPaddle {
   top: 150px;
   left: 15px;

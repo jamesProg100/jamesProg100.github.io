@@ -28,6 +28,13 @@ function runProgram(){
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
   $(document).on("keydown", handleKeyDown);
   $(document).on("keyup", handleKeyUp); 
+
+  const KEY = {
+    W: 87,
+    S: 83,
+    UP: 38,
+    DOWN: 40
+  };
   
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
@@ -54,12 +61,7 @@ function runProgram(){
   Called in response to events.
   */
   //Keydown and keyup functions to move the paddles up and down
-  const KEY = {
-    W: 87,
-    S: 83,
-    UP: 38,
-    DOWN: 40
-  };
+
 
   function handleKeyDown(event) {
     if (event.which === KEY.W) {
@@ -84,13 +86,28 @@ function runProgram(){
       rightPaddle.speedY = 0;
     }
   }
+  //sound logic and sound audio file
+  const bgMusic = new Audio('sound2.wav');
+  bgMusic.loop = true;   // Loop the music
+  bgMusic.volume = 0.5;  // Set volume (0.0 to 1.0)
+
+// Start music when the game starts
+function startGame() {
+    bgMusic.play().catch(err => {
+        console.warn("Autoplay blocked. Start music after user interaction.");
+    });
+    // ... your Pong game logic here ...
+}
+
+//start game on click
+document.addEventListener('click', startGame);
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 //Wall collision function checks if ball goes pass the border
   function wallCollision(obj){
-    
+    //checks if y position of the ball went pass the border
     if (obj.id !== "#ball") {
       if (obj.y <= 0) {
         obj.y = 0;
@@ -124,7 +141,6 @@ function runProgram(){
 
         if (score1 >= 11) {
           alert("Player 1 wins!");
-          $(document).text("Game Over!")
           endGame();
         }
       }
